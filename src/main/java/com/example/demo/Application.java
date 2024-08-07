@@ -18,34 +18,9 @@ public class Application {
 
   //      SpringApplication.run(Application.class, args);
 
-        try{
-            Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/COKE/history/?period1=1565060909&period2=1722912527");
-            Document document = connection.get();
 
-           // Elements eles = document.getElementsByAttributeValue("data-test", "history-table");
-            Elements eles = document.getElementsByClass("table yf-ewueuo");
-           // System.out.println(eles);
-            Element ele = eles.get(0);
-
-            Element tbody = ele.children().get(1);
-            for(Element e : tbody.children()){
-                String txt = e.text();
-                if(!txt.endsWith("Dividend")){
-                    continue;
-                }
-                String[] splits = txt.split(" ");
-                String month = splits[0];
-                int day = Integer.valueOf(splits[1].replace(",",""));
-                int year = Integer.valueOf(splits[2]);
-                String dividend = splits[3];
-                System.out.println(year + "/" + month + "/" + day + "->" + dividend);
-                //System.out.println(txt);
-            }
-         //   System.out.println(ele);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
+        String s ="Hello my name is HANOOK";
+        System.out.println(s);
     }
 
 }
