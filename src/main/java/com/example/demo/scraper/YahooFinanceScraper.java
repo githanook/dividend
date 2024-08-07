@@ -82,18 +82,35 @@ public class YahooFinanceScraper implements Scraper {
             Element titleEle = document.getElementsByTag("h1").get(1);
 
 
+            //TICKER 문자열 개수
+            int a = 0;
+            int b=0;
+            String[] words = ticker.split("");
+            a=words.length;
+            String[] words2 = titleEle.text().split("");
+            b=words2.length;
+            System.out.println("a:::::: "+a);
+            System.out.println("b:::::: "+b);
+            int c = b-a-2;
+            System.out.println("c ::: "+c);
 
 
             System.out.println("title::::: "+titleEle);
 
-
-            //String title = titleEle.text().split(" - ")[1].trim();
-            String title = titleEle.text();
-            System.out.println("title::"+title);
+            String title5 = titleEle.text().substring(0,c).trim();
+            String title3 = titleEle.text().split("[.]")[0].trim();
+            String title4 = titleEle.text();
+//            String title = titleEle.text().split(" - ")[1].trim();
+//            String title2 = titleEle.text().split(" - ")[0].trim();
+            //String title = titleEle.text();
+            System.out.println("@@@@@@   "+title3);
+            System.out.println("%%%%%%   "+title5);
+//            System.out.println("title::"+title);
+//            System.out.println("title::"+title2);
 
             return Company.builder()
                         .ticker(ticker)
-                        .name(title)
+                        .name(title5)
                          .build();
         }catch (IOException e){
             e.printStackTrace();
