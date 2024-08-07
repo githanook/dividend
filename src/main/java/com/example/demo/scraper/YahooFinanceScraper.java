@@ -9,12 +9,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class YahooFinanceScraper implements Scraper {
     private static final String STATIC_URL = "https://finance.yahoo.com/quote/COKE/history/?period1=1565060909&period2=1722912527";
     private static final String SUMMARY_URL = "https://finance.yahoo.com/quote/%s?p=%s";
@@ -59,7 +61,7 @@ public class YahooFinanceScraper implements Scraper {
                 //System.out.println(txt);
 
             }
-            scrapResult.setDividendEntities(dividends);
+            scrapResult.setDividends(dividends);
             //   System.out.println(ele);
         }catch (IOException e){
             e.printStackTrace();
@@ -76,8 +78,18 @@ public class YahooFinanceScraper implements Scraper {
         String url = String.format(SUMMARY_URL, ticker, ticker);
         try{
             Document document = Jsoup.connect(url).get();
-            Element titleEle = document.getElementsByTag("h1").get(0);
-            String title = titleEle.text().split(" - ")[1].trim();
+            System.out.println("document:::::::  "+document);
+            Element titleEle = document.getElementsByTag("h1").get(1);
+
+
+
+
+            System.out.println("title::::: "+titleEle);
+
+
+            //String title = titleEle.text().split(" - ")[1].trim();
+            String title = titleEle.text();
+            System.out.println("title::"+title);
 
             return Company.builder()
                         .ticker(ticker)
