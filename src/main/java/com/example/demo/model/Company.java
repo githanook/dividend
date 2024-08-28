@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data//GETTER, SETTER, LOMBOK, TOSTRING, EQUAL, REQUIREARGUMENTCONSTRUCTURE
-@Builder //BUILDER 패턴
+@NoArgsConstructor
+@AllArgsConstructor
 //DTO, VO
 public class Company {
 
