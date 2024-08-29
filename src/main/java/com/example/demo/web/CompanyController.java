@@ -1,9 +1,11 @@
 package com.example.demo.web;
 
 import com.example.demo.model.Company;
+import com.example.demo.model.constants.CacheKey;
 import com.example.demo.persist.entity.CompanyEntity;
 import com.example.demo.service.CompanyService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
+
+    private final CacheManager redisCacheManager;
+
     @GetMapping("/autocomplete")
     public ResponseEntity<?> autocomplete(@RequestParam String keyword){
         //var result = this.companyService.autoComplete(keyword);
@@ -48,7 +53,12 @@ public class CompanyController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteCompany(){
-        return null;
+    public ResponseEntity<?> deleteCompany(@PathVariable String ticker){
+        String companyName = this.companyService.deleteCompany(ticker);
+        this.clearFinanceCache(companyName);
+        return ResponseEntity.ok(companyName);
+    }
+    public void clearFinanceCache(String companyName){
+        this.redisCacheManager.getCache(CacheKey.KEY_FINAL).evict(companyName);
     }
 }

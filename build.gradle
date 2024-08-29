@@ -27,12 +27,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
 
     implementation  group: 'com.h2database', name: 'h2', version: '2.1.214'
     runtimeOnly('com.h2database:h2:2.1.214')
     implementation  group: 'org.jsoup', name: 'jsoup', version: '1.15.3'
+    implementation group: 'io.jsonwebtoken', name:'jjwt', version:'0.9.1'
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.5.0-M1'
 
     compileOnly 'org.projectlombok:lombok'
